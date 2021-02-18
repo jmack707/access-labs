@@ -13,7 +13,7 @@ Password: **user1**
 2. Access the BIG-IP GUI https://10.1.1.4 (you can double-click on the BIG-IP1 bookmark from Chrome).
 
 3. Login into the BIG-IP Configuration Utility with the following credentials:
-User: **f5lab\admin**
+User: **admin**
 Password: **admin**
 
 .. NOTE::
