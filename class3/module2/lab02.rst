@@ -1,4 +1,4 @@
-Lab 2: Implement Priviledged User Access Authentication
+Lab 2: Implement Priviledged User Access Authentication with Radius
 ===========================================================
 
 The F5 Privileged User Access (PUA) solution provides an easy way to add CAC/PKI authentication or other strong authentication methods to network infrastructure and systems that do not natively support this functionality.  It does this without requiring the addition of client software or agents anywhere in the environment and allows you to fully leverage your legacy or non-compliant systems in a safe and secure manner.  It integrates directly into DoD PKI or MFA systems and may be configured to work cooperatively with existing TACACS, Active Directory, AAA servers, or a variety of third-party authentication databases.
