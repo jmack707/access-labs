@@ -369,7 +369,7 @@ The LDAP macro will verify that the requesting user has a valid account and the 
 
    |image30|
 
-#. Enter **LDAP_Query** for the and click **Save**
+#. Enter **LDAP_Query** for the Name and click **Save**
 
    |image31|
 
@@ -567,7 +567,7 @@ In this section, you will add the CAC Auth Macro to the initial access policy an
 
    |image55|
 
-#. Make the following changes
+#. Make the following changes:
 
    - Change the right hand pull down setting to **AAA Attribute**
    - Change the Agent Type to **LDAP**
@@ -585,7 +585,7 @@ In this section, you will add the CAC Auth Macro to the initial access policy an
 
    |image58|
 
-#. Make the following changes
+#. Make the following changes:
 
    - Update the field below Custom Variable with **session.logon.last.username**
    - Change the Custom Expression pull down to **AAA Atribute**
