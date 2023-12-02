@@ -16,7 +16,12 @@ IFS are third-party intermediary services facilitating user-authentication to re
    - DISA/JITC PKE (public key enabled)
    - United States Government IPv6 Conformance Certification (USGv6)
 
-
+F5's PUA solution can be used to protect a wide range of critical systems and applications, including:
+--------------------------------------------------------------
+   - Network devices: Routers, switches, firewalls, and other network devices.
+   - Security devices: Intrusion detection systems, intrusion prevention systems, and other security devices.
+   - Servers: Web servers, database servers, and other servers that contain sensitive data.
+   - Cloud applications: SaaS, PaaS, and IaaS applications.
 
 Priviledged User Access (PUA) Requirements
 ------------------------------------------------------
@@ -168,7 +173,7 @@ Setting the "noninteractive=true" option will perform a full unattended install 
 
    .. code-block:: console
 
-      unzip build_pua-151-1.1.5-rc17.zip
+      unzip build_pua-1.2.6.zip
 
    |image02|
 
@@ -180,29 +185,22 @@ Setting the "noninteractive=true" option will perform a full unattended install 
 
    |image03|
 
-#. Run the PUA installation script **./build_pua.sh**
+#. Run the PUA installation script **./build_pua.sh**. We are using the -s option to ignored the time limited modules provisioned.  
 
    .. code-block:: console
 
-      ./build_pua-151.sh
-
-
-   .. code-block:: console
-
-      [admin@bigip1:Active:Standalone] pua # ./build_pua-151.sh
-
-      /var/tmp/pua/build_pua-151.sh - v1.1.5-rc17 on BIG-IP v15.1.0
+      [admin@bigip1:TimeLimitedModules::Active:Standalone] pua # ./build_pua.sh -s
+      /var/tmp/pua/build_pua.sh - v1.2.6 on BIG-IP v16.1.0
       Reading config from /var/tmp/pua/pua_config.sh...
 
       noninteractive is GO... Buckle up...
+      This version 16.1.0.
 
       Preparing environment... [OK]
 
-      Changing to /tmp/pua.rILEoICRFw... [OK]
+      Changing to /tmp/pua.OejBmn2ols... [OK]
 
       Extracting archive... [OK]
-
-      Checking License Entitlements for Privileged User Access... [OK]
 
       Adding ILX archive directory... [OK]
 
@@ -214,13 +212,13 @@ Setting the "noninteractive=true" option will perform a full unattended install 
 
       SUCCESS: All modules provisioned.
 
-      Checking for BIG-IP-ILX-WebSSH2-current.tgz... [OK]
+      Checking for BIG-IP-ILX-WebSSH2-0.2.11.tgz... [OK]
 
-      Hash check for BIG-IP-ILX-WebSSH2-current.tgz... [OK]
+      Hash check for BIG-IP-ILX-WebSSH2-0.2.11.tgz... [OK]
 
-      Checking for BIG-IP-ILX-ephemeral_auth-151-current.tgz... [OK]
+      Checking for BIG-IP-ILX-ephemeral_auth-v0.5.0.tgz... [OK]
 
-      Hash check for BIG-IP-ILX-ephemeral_auth-151-current.tgz... [OK]
+      Hash check for BIG-IP-ILX-ephemeral_auth-v0.5.0.tgz... [OK]
 
       RADIUS = 10.1.20.104
 
@@ -229,12 +227,6 @@ Setting the "noninteractive=true" option will perform a full unattended install 
       LDAPS = 10.1.20.104
 
       Webtop = 10.1.10.104
-      [OK]
-      [OK]
-      [OK]
-      [OK]
-      [OK]
-      [OK]
 
       Checking for ca.pua.lab.cer... [OK]
 
@@ -258,9 +250,11 @@ Setting the "noninteractive=true" option will perform a full unattended install 
 
       Creating WebSSH2 Workspace... [OK]
 
-      Extracting BIG-IP-ILX-WebSSH2-current.tgz to /var/ilx/workspaces/Common... [OK]
+      Extracting BIG-IP-ILX-WebSSH2-0.2.11.tgz to /var/ilx/workspaces/Common... [OK]
 
       Copying WebSSH2 config.json.sample to config.json... [OK]
+
+      Set SElinux contexts for WebSSH2 workspace... [OK]
 
       Creating WebSSH2 Plugin... [OK]
 
@@ -272,11 +266,13 @@ Setting the "noninteractive=true" option will perform a full unattended install 
 
       Creating Ephemeral Authentication Workspace... [OK]
 
-      Extracting BIG-IP-ILX-ephemeral_auth-151-current.tgz to /var/ilx/workspaces/Common... [OK]
+      Extracting BIG-IP-ILX-ephemeral_auth-v0.5.0.tgz to /var/ilx/workspaces/Common... [OK]
 
       Modifying Ephemeral Authentication Workspace... [OK]
 
       Copying Ephemeral Auth config.json.sample to config.json... [OK]
+
+      Set SElinux contexts for Ephemeral Auth workspace... [OK]
 
       Creating Ephemeral Authentication Plugin... [OK]
 
@@ -296,26 +292,21 @@ Setting the "noninteractive=true" option will perform a full unattended install 
 
       You can test your new APM webtop now by browsing to:
 
-         https://10.1.10.104
+        https://10.1.10.104
 
-         username: <any>
-         password: <any>
+        username: <any>
+        password: <any>
 
-      This will let anyone in with any policy. The next step after testing would be
-      to add access control through AD, MFA, or some other method.
+      This will let anyone in with any policy. The next step after testing would be to add access control through AD, MFA, or some other
+      method.
 
-      If the RADIUS testing option was enabled, any username will log in using
-      Ephemeral Authentication.
+      If the RADIUS testing option was enabled, any username will log in using Ephemeral Authentication.
 
       Task complete.
 
       Now go build an APM policy for PUA!
 
       Cleaning up...
-
-
-      /var/tmp/pua/build_pua-151.sh - v1.1.5-rc17 on BIG-IP v15.1.0
-      [admin@bigip1:Active:Standalone]
 
 
 Task 3 - Accessing the BIG-IP via APM Webtop
@@ -518,18 +509,6 @@ In this section, you will build a macro to request the user certificate.
 
    |image47|
 
-#. Click the plus sign on the **fallback** branch after the On-Demand Cert Auth
-
-   |image48|
-
-#. Select **General Purpose** across the top, select **Message Box** in the main page, and click **Add Item**
-
-   |image49|
-
-#. Name the message box CAC Failure, enter CAC Failure in the **Message** box, and click **Save**
-
-   |image140|
-
 #. Click **Edit Terminals**
 
    |image141|
@@ -538,11 +517,11 @@ In this section, you will build a macro to request the user certificate.
 
    |image142|
 
-#. Change the default name to Failure
+#. Change the default name to **Failure**
 
    |image143|
 
-#. Click the down arrow beside the Failure box to change the order. The **Success** terminal should be on top. Click **Save**
+#. Click the down arrow beside the **Failure** box to change the order. The **Success** terminal should be on top. Click **Save**
 
    |image147|
 
@@ -563,20 +542,20 @@ Task 7 - Update the Initial Access Policy
 
 In this section, you will add the CAC Auth Macro to the initial access policy and update the variable assignments.
 
-#. Click the **X** the Logon Page box to remove the Logon Page
+#. Click the **X** on the Logon object to remove the Logon Page
 
    |image50|
 
-#. Click the Delete button
+#. Click the **Delete** button
 
    |image51|
 
 
-#. Click the plus sign between USG Waring Banner and Variable Assign
+#. Click the **plus sign** between USG Waring Banner and Variable Assign
 
    |image52|
 
-#. Select **Macros** across the top, select the **CAC Auth** button in the main page, and click **Add Item**
+#. Select **Macros** across the top. Next, select the **CAC Auth** button in the main page, and click **Add Item**
 
    |image53|
 
