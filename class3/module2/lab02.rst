@@ -434,8 +434,8 @@ The LDAP macro will verify that the requesting user has a valid account and the 
 
    .. code-block:: console
 
-      Name:    **LDAP Failure**
-      Message: **LDAP Failure for user %{UserPrincipalName}**
+      Name:    LDAP Failure
+      Message: LDAP Failure for user %{UserPrincipalName}
 
    |image134|
 
